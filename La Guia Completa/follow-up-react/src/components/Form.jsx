@@ -1,4 +1,7 @@
+import { useState, useEffect } from "react";
+
 function Form() {
+    const [name, setName] = useState('');
 
     return(
         <div className="md:w-1/2 lg:w-2/5">
@@ -17,6 +20,8 @@ function Form() {
                         type="text"
                         placeholder="Pet's name"
                         className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                        value={name}
+                        onChange={ (event) => setName(event.target.value) }
                     />
                 </div>
                 <div className="mb-5">
