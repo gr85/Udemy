@@ -6,7 +6,7 @@ function Form() {
 
             <p className="text-lg mt-5 text-center mb-10">
                 Add Patients and {''}
-                <span className="text-indigo-600 font-bold">Admin</span>
+                <span className="text-indigo-600 font-bold">Manage them</span>
             </p>
 
             <form className="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
