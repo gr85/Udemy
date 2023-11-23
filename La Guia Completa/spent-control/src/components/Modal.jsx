@@ -1,16 +1,37 @@
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 import CloseBtn from '../img/cerrar.svg'
 import Message from './Message';
 
 
-function Modal({ setModal, animateModal, setAnimateModal, saveExpense }) {
+function Modal({ 
+    setModal, 
+    animateModal, 
+    setAnimateModal, 
+    saveExpense , 
+    expenseEdit,
+    setExpenseEdit
+}) {
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState(0);
     const [category, setCategory] = useState('');
     const [message, setMessage] = useState('');
+    const [date, setDate] = useState('');
+    const [id, setId] = useState('');
+
+    useEffect(() => {
+        if(Object.keys(expenseEdit).length > 0) {
+            // Edit
+            setName(expenseEdit.name);
+            setQuantity(expenseEdit.quantity);
+            setCategory(expenseEdit.category);
+            setDate(expenseEdit.date);
+            setId(expenseEdit.id);
+          }
+    }, [])
 
     const hideModal = () => {
         setAnimateModal(false);
+        setExpenseEdit({});
         
         setTimeout(() => {
             setModal(false);
@@ -31,7 +52,7 @@ function Modal({ setModal, animateModal, setAnimateModal, saveExpense }) {
             return;
         }
 
-        saveExpense({name, quantity, category});
+        saveExpense({name, quantity, category, id, date});
     }
 
     return (
@@ -45,7 +66,7 @@ function Modal({ setModal, animateModal, setAnimateModal, saveExpense }) {
             <form className={`formulario ${animateModal ? "animar" : "cerrar"}`}
                 onSubmit={handleNewExpense}
             >
-                <legend>New Expense</legend>
+                <legend>{expenseEdit.name ? 'Edit Expense' : 'New Expense'}</legend>
 
                 {message && <Message type="error">{message}</Message>}
 
@@ -87,7 +108,7 @@ function Modal({ setModal, animateModal, setAnimateModal, saveExpense }) {
 
                 <input 
                     type='submit' 
-                    value="Add Expense" 
+                    value={expenseEdit.name ? 'Save changes' : 'Add Expense'} 
                 />
             </form>
         </div>

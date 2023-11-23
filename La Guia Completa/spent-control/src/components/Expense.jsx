@@ -27,22 +27,35 @@ const dictIcons = {
     subscription : IconSubscription
 }
 
-function Expense({ expense }) {
+function Expense({ expense, setExpenseEdit, deleteExpense }) {
     const { category, name, quantity, id, date } = expense;
 
-    const leadingActions = () => {
+    const leadingActions = () => (
         // Edit ...
-    }
+        <LeadingActions>
+            <SwipeAction onClick={() => setExpenseEdit(expense)}>
+                Edit
+            </SwipeAction>
+        </LeadingActions>
+    )
 
-    const trailingActions = () => {
+    const trailingActions = () => (
         // Delete ...
-    }
+        <TrailingActions>
+            <SwipeAction 
+                onClick={() => deleteExpense(id)}
+                destructive={true}
+            >
+                Delete
+            </SwipeAction>
+        </TrailingActions>
+    )
 
     return (
         <SwipeableList>
             <SwipeableListItem
-                leadingActions={leadingActions}
-                trailingActions={trailingActions}
+                leadingActions={leadingActions()}
+                trailingActions={trailingActions()}
             >
                 <div className="gasto sombra">
                     <div className="contenido-gasto">
