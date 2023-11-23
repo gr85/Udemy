@@ -2,7 +2,13 @@ import Budget from "./Budget"
 import BudgetControl from "./BudgetControl"
 
 
-function Header({ budget, setBudget, isValidBudget, setIsValidBudget }) {
+function Header({ 
+  budget, 
+  setBudget, 
+  isValidBudget, 
+  setIsValidBudget, 
+  expenses 
+}) {
   return (
     <header>
       <h1>Spenses Planner</h1>
@@ -10,6 +16,7 @@ function Header({ budget, setBudget, isValidBudget, setIsValidBudget }) {
       {isValidBudget ? (
         <BudgetControl 
             budget={budget}
+            expenses={expenses}
         />
       ) : (
         <Budget 

@@ -1,5 +1,27 @@
+import { useState, useEffect } from "react";
 
-function BudgetControl({ budget }) {
+
+function BudgetControl({ budget, expenses }) {
+    const [isFirstTime, setIsFirstTime] = useState(true);
+    const [available, setAvailable] = useState(0);
+    const [spent, setSpent] = useState(0);
+
+    useEffect(() => {
+        if(isFirstTime) {
+            setIsFirstTime(false);
+            setAvailable(budget);
+            return;
+        }
+
+        const totalSpent = expenses.reduce( (total, expense) => {
+            return total + expense.quantity;
+        }, 0);
+
+        const totalAvailable = budget - totalSpent;
+
+        setSpent(totalSpent);
+        setAvailable(totalAvailable);
+    }, [expenses]);
 
     const formatBudget = (quantity) => {
         return quantity.toLocaleString('es-ES', {
@@ -19,10 +41,10 @@ function BudgetControl({ budget }) {
                     <span>Budget:</span> {formatBudget(budget)}
                 </p>
                 <p>
-                    <span>Available:</span> {formatBudget(0)}
+                    <span>Available:</span> {formatBudget(available)}
                 </p>
                 <p>
-                    <span>Spent:</span> {formatBudget(0)}
+                    <span>Spent:</span> {formatBudget(spent)}
                 </p>
             </div>
         </div>
