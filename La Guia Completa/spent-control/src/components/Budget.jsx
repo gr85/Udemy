@@ -19,7 +19,7 @@ function Budget({ budget, setBudget, setIsValidBudget }) {
     }
 
     return (
-        <div className="contenedor-pressupuesto contenedor sombra">
+        <div className="contenedor-presupuesto contenedor sombra">
         <form className="formulario" onSubmit={handleBudget}>
             <div className="campo">
                 <label>Define Budget</label>

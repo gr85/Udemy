@@ -2,7 +2,7 @@
 function BudgetControl({ budget }) {
 
     const formatBudget = (quantity) => {
-        return quantity.toLocaleString('es', {
+        return quantity.toLocaleString('es-ES', {
             style: 'currency',
             currency: 'EUR'
         });
