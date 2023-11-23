@@ -11,7 +11,7 @@ Currently, two official plugins are available:
 # Deploy Vite Project
 
 To deploy the project follow these steps:
-- Edit `tailwind.css` and replace the content line with `content: ["index.html", "./src/**/*.jsx"]`
+- Edit `tailwind.config.js` and replace the content line with `content: ["index.html", "./src/**/*.jsx"]`
 - Open a new terminal inside the project and run `npm run build`
 
 This will create a folder named *dist* with all you need to deploy the project
