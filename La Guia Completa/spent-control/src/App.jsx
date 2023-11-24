@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Header from './components/Header'
 import Modal from './components/Modal';
 import ExpensesList from './components/ExpensesList';
+import Filter from './components/Filter';
 
 import { generateId } from './helpers';
 import IconNewSpent from './img/nuevo-gasto.svg'
@@ -16,6 +17,8 @@ function App() {
     localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : []
   );
   const [expenseEdit, setExpenseEdit] = useState({});
+  const [filter, setFilter] = useState('');
+  const [expensesFiltered, setExpensesFiltered] = useState([]);
 
   useEffect(() => {
     if(Object.keys(expenseEdit).length > 0) {
@@ -32,16 +35,25 @@ function App() {
   }, [budget])
 
   useEffect(() => {
+    localStorage.setItem('expenses', JSON.stringify(expenses) ?? []);
+  }, [expenses])
+
+  useEffect(() => {
+    if(filter) {
+      // Filter expenses by category
+      const filteredExpenses = expenses.filter( expense => expense.category === filter);
+
+      setExpensesFiltered(filteredExpenses);
+    }
+  }, [filter])
+
+  useEffect(() => {
     const budgetLS = Number(localStorage.getItem('budget')) ?? 0;
 
     if(budgetLS > 0) {
       setIsValidBudget(true);
     }
   }, [])
-
-  useEffect(() => {
-    localStorage.setItem('expenses', JSON.stringify(expenses) ?? []);
-  }, [expenses])
 
   const handleNewExpense = () => {
     setExpenseEdit({});
@@ -77,7 +89,6 @@ function App() {
     const expensesUpdate = expenses.filter( expense => expense.id !== id);
 
     setExpenses(expensesUpdate);
-    setTimeout(() => {}, 500)
   }
 
   return (
@@ -93,10 +104,16 @@ function App() {
       {isValidBudget && (
         <>
           <main>
+            <Filter 
+              filter={filter}
+              setFilter={setFilter}
+            />
             <ExpensesList 
               expenses={expenses}
               setExpenseEdit={setExpenseEdit}
               deleteExpense={deleteExpense}
+              filter={filter}
+              expensesFiltered={expensesFiltered}
             />
           </main>
           <div className='nuevo-gasto'>
