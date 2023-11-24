@@ -7,7 +7,8 @@ function Header({
   setBudget, 
   isValidBudget, 
   setIsValidBudget, 
-  expenses 
+  expenses,
+  setExpenses
 }) {
   return (
     <header>
@@ -16,7 +17,10 @@ function Header({
       {isValidBudget ? (
         <BudgetControl 
             budget={budget}
+            setBudget={setBudget}
             expenses={expenses}
+            setExpenses={setExpenses}
+            setIsValidBudget={setIsValidBudget}
         />
       ) : (
         <Budget 

@@ -10,7 +10,7 @@ function Filter({ filter, setFilter }) {
                 value={filter}
                 onChange={(event) => setFilter(event.target.value)}
             >
-                <option value="">-- All Expenses --</option>
+                <option value="">All Expenses</option>
                 <option value="savings">Savings</option>
                 <option value="food">Food</option>
                 <option value="home">Home</option>
